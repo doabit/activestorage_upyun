@@ -20,4 +20,6 @@ Gem::Specification.new do |s|
   s.add_dependency 'upyun', '~> 1.0.8'
 
   s.add_development_dependency "sqlite3"
+  s.add_development_dependency "bundler", ">= 1.0.0"
+  s.add_development_dependency "rake"
 end
