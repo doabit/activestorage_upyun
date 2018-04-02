@@ -26,5 +26,17 @@ Set up activestorage service:
 config.active_storage.service = :upyun
 ```
 
+Use for image url
+
+```erb
+<%= image_tag @user.avatar.service_url %>
+```
+
+Or add thumb version named `webpw200`
+
+```erb
+<%= image_tag @user.avatar.service_url((filename: 'x-upyun-process=!webpw200')) %>
+```
+
 ## License
 The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).

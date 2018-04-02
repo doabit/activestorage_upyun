@@ -71,9 +71,13 @@ module ActiveStorage
       end
     end
 
-    def url(key, **options)
+    def url(key, expires_in:, filename:, content_type:, disposition:)
       instrument :url, key: key do |payload|
-        url = url_for(key)
+        params = {}
+        if filename.to_s.include?("x-upyun-process")
+          params["x-upyun-process"] = filename.to_s.split("=").last
+        end
+        url = url_for(key, params: params)
         payload[:url] = url
         url
       end
@@ -116,8 +120,9 @@ module ActiveStorage
 
     private
 
-    def url_for(key)
-      [@host, @folder, key].join('/')
+    def url_for(key, params: {})
+      url = [@host, @folder, key].join('/')
+      [url, params['x-upyun-process']].join if params['x-upyun-process']
     end
 
     def path_for(key)
