@@ -21,6 +21,7 @@ module ActiveStorage
   #
   class Service::UpyunService < Service
     ENDPOINT = 'http://v0.api.upyun.com'
+    IDENTIFIER = '!'
 
     attr_reader :upyun, :bucket, :operator, :password, :host, :folder, :upload_options
 
@@ -71,12 +72,8 @@ module ActiveStorage
       end
     end
 
-    def url(key, expires_in:, filename:, content_type:, disposition:)
+    def url(key, expires_in:, filename:, content_type:, disposition:, params: {})
       instrument :url, key: key do |payload|
-        params = {}
-        if filename.to_s.include?("x-upyun-process")
-          params["x-upyun-process"] = filename.to_s.split("=").last
-        end
         url = url_for(key, params: params)
         payload[:url] = url
         url
@@ -122,7 +119,11 @@ module ActiveStorage
 
     def url_for(key, params: {})
       url = [@host, @folder, key].join('/')
-      [url, params['x-upyun-process']].join if params['x-upyun-process']
+      return url if params.blank?
+      process = params.delete(:process)
+      identifier = @upload_options[:identifier] || IDENTIFIER
+      url = [url, process].join(identifier) if process
+      url
     end
 
     def path_for(key)

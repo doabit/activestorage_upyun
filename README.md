@@ -35,7 +35,20 @@ Use for image url
 Or add thumb version named `webpw200`
 
 ```erb
-<%= image_tag @user.avatar.service_url((filename: 'x-upyun-process=!webpw200')) %>
+<%= image_tag @user.avatar.service_url(params: {process: 'webpw200'}) %>
+```
+
+thumb version use `!` as default identifier, if you want to use `_` as identifier, you can add `identifier` option
+
+```yml
+upyun:
+  service: Upyun
+  bucket: <%= ENV['UPYUUN_BUCKET'] %>
+  operator: <%= ENV['UPYUUN_OPERATOR'] %>
+  password: <%= ENV['UPYUUN_PASSWORD'] %>
+  host: <%= ENV['UPYUN_HOST'] %>
+  folder: <%= ENV['UPYUN_FOLDER'] %>
+  identifier: _
 ```
 
 ## License
