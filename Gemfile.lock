@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    activestorage_upyun (0.2.0)
+    activestorage_upyun (0.3.0)
       activestorage
       upyun (~> 1.0.8)
 
