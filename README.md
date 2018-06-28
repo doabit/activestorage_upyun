@@ -5,7 +5,7 @@ Upyun service for activestorage.
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'activestorage_upyun'
+gem 'activestorage_upyun', require: false
 ```
 
 Set up upyun storage service in config/storage.yml:
@@ -13,9 +13,9 @@ Set up upyun storage service in config/storage.yml:
 ```yml
 upyun:
   service: Upyun
-  bucket: <%= ENV['UPYUUN_BUCKET'] %>
-  operator: <%= ENV['UPYUUN_OPERATOR'] %>
-  password: <%= ENV['UPYUUN_PASSWORD'] %>
+  bucket: <%= ENV['UPYUN_BUCKET'] %>
+  operator: <%= ENV['UPYUN_OPERATOR'] %>
+  password: <%= ENV['UPYUN_PASSWORD'] %>
   host: <%= ENV['UPYUN_HOST'] %>
   folder: <%= ENV['UPYUN_FOLDER'] %>
 ```
@@ -43,9 +43,9 @@ thumb version use `!` as default identifier, if you want to use `_` as identifie
 ```yml
 upyun:
   service: Upyun
-  bucket: <%= ENV['UPYUUN_BUCKET'] %>
-  operator: <%= ENV['UPYUUN_OPERATOR'] %>
-  password: <%= ENV['UPYUUN_PASSWORD'] %>
+  bucket: <%= ENV['UPYUN_BUCKET'] %>
+  operator: <%= ENV['UPYUN_OPERATOR'] %>
+  password: <%= ENV['UPYUN_PASSWORD'] %>
   host: <%= ENV['UPYUN_HOST'] %>
   folder: <%= ENV['UPYUN_FOLDER'] %>
   identifier: _
