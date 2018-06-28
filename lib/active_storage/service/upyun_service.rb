@@ -1,3 +1,5 @@
+require "upyun"
+
 module ActiveStorage
   # Wraps the upyun Storage Service as an Active Storage service.
   # See ActiveStorage::Service for the generic API documentation that applies to all services.
@@ -7,9 +9,9 @@ module ActiveStorage
   #
   #   upyun:
   #     service: Upyun
-  #     bucket: <%= ENV['UPYUUN_BUCKET'] %>
-  #     operator: <%= ENV['UPYUUN_OPERATOR'] %>
-  #     password: <%= ENV['UPYUUN_PASSWORD'] %>
+  #     bucket: <%= ENV['UPYUN_BUCKET'] %>
+  #     operator: <%= ENV['UPYUN_OPERATOR'] %>
+  #     password: <%= ENV['UPYUN_PASSWORD'] %>
   #     host: <%= ENV['UPYUN_HOST'] %>
   #     folder: <%= ENV['UPYUN_FOLDER'] %>
   #
