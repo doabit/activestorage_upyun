@@ -22,7 +22,7 @@ module ActiveStorage
   #
   #
   class Service::UpyunService < Service
-    ENDPOINT = 'http://v0.api.upyun.com'
+    ENDPOINT = 'https://v0.api.upyun.com'
     IDENTIFIER = '!'
 
     attr_reader :upyun, :bucket, :operator, :password, :host, :folder, :upload_options
