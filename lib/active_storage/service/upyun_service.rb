@@ -37,7 +37,7 @@ module ActiveStorage
       @upyun = Upyun::Rest.new(bucket, operator, password, options)
     end
 
-    def upload(key, io, checksum: nil)
+    def upload(key, io, checksum: nil, content_type: nil, disposition: nil, filename: nil)
       instrument :upload, key: key, checksum: checksum do
         begin
           result = @upyun.put(path_for(key), io)
