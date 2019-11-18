@@ -115,7 +115,7 @@ module ActiveStorage
     def delete_prefixed(prefix)
       instrument :delete_prefixed, prefix: prefix do
          items = @upyun.getlist "/#{@folder}/#{prefix}"
-         unless items[:error]
+         if items.is_a?(Array)
           items.each do |file|
            @upyun.delete("/#{@folder}/#{prefix}#{file[:name]}")
           end
