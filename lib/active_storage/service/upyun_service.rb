@@ -129,7 +129,7 @@ module ActiveStorage
     def url_for(key, params: {})
       url = [@host, @folder, key].join('/')
       return url if params.blank?
-      process = params.delete(:process)
+      process = params.dig(:process)
       identifier = @upload_options[:identifier] || IDENTIFIER
       url = [url, process].join(identifier) if process
       url
