@@ -37,7 +37,7 @@ module ActiveStorage
       @upyun = Upyun::Rest.new(bucket, operator, password, options)
     end
 
-    def upload(key, io, checksum: nil, content_type: nil, disposition: nil, filename: nil)
+    def upload(key, io, checksum: nil, content_type: nil, disposition: nil, filename: nil, custom_metadata: {}, **)
       instrument :upload, key: key, checksum: checksum do
         begin
           result = @upyun.put(path_for(key), io)
@@ -89,7 +89,7 @@ module ActiveStorage
       end
     end
 
-    def url_for_direct_upload(key, expires_in:, content_type:, content_length:, checksum:)
+    def url_for_direct_upload(key, expires_in:, content_type:, content_length:, checksum:, custom_metadata: {})
       instrument :url, key: key do |payload|
         url = [ENDPOINT, @bucket , @folder, key].join('/')
         payload[:url] = url
@@ -97,7 +97,7 @@ module ActiveStorage
       end
     end
 
-    def headers_for_direct_upload(key, content_type:, checksum:, content_length:, **)
+    def headers_for_direct_upload(key, content_type:, checksum:, content_length:, custom_metadata: {}, **)
       user = @operator
       pwd = md5(@password)
       method = 'PUT'
@@ -109,7 +109,16 @@ module ActiveStorage
         OpenSSL::HMAC.digest('sha1', pwd, str)
       )
       auth = "UPYUN #{@operator}:#{signature}"
-      {"Content-Type" => content_type, "Authorization" => auth, "X-Date" => date}
+      {
+        "Content-Type" => content_type,
+        "Authorization" => auth,
+        "X-Date" => date,
+        **custom_metadata_headers(custom_metadata)
+      }
+    end
+
+    def custom_metadata_headers(metadata)
+      metadata.transform_keys { |key| "x-upyun-meta-#{key}" }
     end
 
     def delete_prefixed(prefix)
