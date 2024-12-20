@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    activestorage_upyun (0.4.0)
+    activestorage_upyun (0.6.0)
       activestorage
       upyun (~> 1.0.8)
 
@@ -103,4 +103,4 @@ DEPENDENCIES
   sqlite3
 
 BUNDLED WITH
-   1.17.1
+   2.5.23

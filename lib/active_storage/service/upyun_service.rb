@@ -97,7 +97,7 @@ module ActiveStorage
       end
     end
 
-    def headers_for_direct_upload(key, content_type:, checksum:, content_length:, custom_metadata: {}, **)
+    def headers_for_direct_upload(key, content_type:, checksum:, custom_metadata: {}, **)
       user = @operator
       pwd = md5(@password)
       method = 'PUT'
@@ -149,7 +149,7 @@ module ActiveStorage
     end
 
     def fullpath(path)
-      decoded = URI::encode(URI::decode(path.to_s.force_encoding('utf-8')))
+      decoded = CGI.escape(CGI.unescape(path.to_s.force_encoding('utf-8')))
       decoded = decoded.gsub('[', '%5B').gsub(']', '%5D')
       "/#{@bucket}#{decoded.start_with?('/') ? decoded : '/' + decoded}"
     end
