@@ -68,7 +68,7 @@ module ActiveStorage
     def download_chunk(key, range)
        instrument :download_chunk, key: key, range: range do
         range_end = range.exclude_end? ? range.end - 1 : range.end
-        @upyun.get(path_for(key), nil, headers: {range: "bytes=#{range.begin}-#{range_end}"})
+        @upyun.get(path_for(key), nil, {range: "bytes=#{range.begin}-#{range_end}"})
       end
     end
 
